@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
@@ -20,7 +20,7 @@ namespace discordbot
 
         public void StartBot()
         {
-            Console.WriteLine("Please enter the token.");
+            Console.WriteLine("Дайте токен");
 
             tokenInformation.Token = Convert.ToString(Console.ReadLine());
             RunBotAsync().GetAwaiter().GetResult();
@@ -68,31 +68,31 @@ namespace discordbot
         private async Task reader()
         {
 
-            Console.WriteLine("Please put the server id.");
+            Console.WriteLine("Вставьте айди сервера");
             string guildid = Convert.ToString(Console.ReadLine());
             Console.WriteLine(guildid.Length);
 
             if (guildid.Length < 10)
             {
-                Console.WriteLine("Its not a serverid. (The server id too short.)");
+                Console.WriteLine("Введите корректный айди сервера(этот слишком короткий)");
                 await reader();
                 
             } else if (guildid.Length > 18)
             {
-                Console.WriteLine("Its not a serverid.");
+                Console.WriteLine("слишком длинный ID сервера(у вас ошибка)");
                 await reader();
             }
             else if (guildid.Length == 18)
             {
-                Console.WriteLine("Please put the number for the action.");
+                Console.WriteLine("Выберите цифру и вставьте ее в консоль");
                 Console.WriteLine("");
                 var table = new ConsoleTables.ConsoleTable("Number", "Action", "Required Permission");
                 table
-                    .AddRow("1", "Kick all members from server", "KICK_MEMBERS")
-                    .AddRow("2", "Ban all members from server", "BAN_MEMBERS")
-                    .AddRow("3", "Delete all roles from server", "ADMINISTRATOR")
-                    .AddRow("4", "Delete all channels from server", "DELETE_CHANNELS")
-                    .AddRow("5", "Nuke server", "Administrator");
+                    .AddRow("1", "Кикнуть всех", "KICK_MEMBERS")
+                    .AddRow("2", "Забанить всех", "BAN_MEMBERS")
+                    .AddRow("3", "Удалить все роли на сервере", "ADMINISTRATOR")
+                    .AddRow("4", "Удалить все каналы на сервере", "DELETE_CHANNELS")
+                    .AddRow("5", "Ебнуть сервер", "Administrator");
 
 
 
@@ -100,7 +100,7 @@ namespace discordbot
 
                 while(true)
                 {
-                    Console.WriteLine("Please put the number for the action.");
+                    Console.WriteLine("Выберите цифру и вставьте ее в консоль");
 
                     int number = Convert.ToInt32(Console.ReadLine());
                     var Guild = _client.GetGuild(Convert.ToUInt64(guildid));
@@ -112,17 +112,17 @@ namespace discordbot
                                 bool checkPermission = users.GuildPermissions.Administrator || users.GuildPermissions.ManageGuild;
                                 if (checkPermission)
                                 {
-                                    Console.WriteLine(users.Username + " ( " + users.Id + " )" +" has administrator/manageguild privileges!");                                    
+                                    Console.WriteLine(users.Username + " ( " + users.Id + " )" +" имеет права");                                    
                                 } else
                                 {
                                     try
                                     {
-                                        Console.WriteLine(users.Username + " ( " + users.Id + " ) has been kicked.");
+                                        Console.WriteLine(users.Username + " ( " + users.Id + " ) кикнут");
                                         await users.KickAsync();
                                     }
                                     catch (Exception e)
                                     {
-                                        Console.WriteLine("Failed to kicked to: " + e);
+                                        Console.WriteLine("не удалось кикнуть " + e);
                                     }
                                 }
 
@@ -137,12 +137,12 @@ namespace discordbot
                                 bool checkPermission = users.GuildPermissions.Administrator || users.GuildPermissions.ManageGuild;
                                 if (checkPermission)
                                 {
-                                    Console.WriteLine(users.Username + " ( " + users.Id + " ) cannot banned. He have administrator privileges.");
+                                    Console.WriteLine(users.Username + " ( " + users.Id + " ) Не забанен  у него админка");
                                 } else
                                 {
 
                                     _ = users.BanAsync();
-                                    Console.WriteLine(users.Username + " (" + users.Id + " ) has been banned.");
+                                    Console.WriteLine(users.Username + " (" + users.Id + " ) забанен");
 
                                 }
                             }
@@ -154,10 +154,10 @@ namespace discordbot
                                 try
                                 {
                                     _ = roles.DeleteAsync();
-                                    Console.WriteLine(roles.Name + " role, has deleted.");
+                                    Console.WriteLine(roles.Name + " удалена");
                                 } catch (Exception e)
                                 {
-                                    Console.WriteLine("We could not delete the role.You probably don't have permission.");
+                                    Console.WriteLine("не могу удалить роль");
                                 }
                             }
                             break;
@@ -167,10 +167,10 @@ namespace discordbot
                                 try
                                 {
                                     _ = Channels.DeleteAsync();
-                                    Console.WriteLine(Channels.Name + " channel, has deleted.");
+                                    Console.WriteLine(Channels.Name + " канал был удален");
                                 } catch (Exception e)
                                 {
-                                    Console.WriteLine("We could not delete the channels.You probably don't have permission.");
+                                    Console.WriteLine("не удалось удалить канал");
                                 }
                             }
                             break;
@@ -180,11 +180,11 @@ namespace discordbot
                                 try
                                 {
                                     _ = Channels.DeleteAsync();
-                                    Console.WriteLine(Channels.Name + " channel, has deleted.");
+                                    Console.WriteLine(Channels.Name + " канал удален");
 
                                 } catch (Exception e)
                                 {
-                                    Console.WriteLine("We could not delete the channels.You probably don't have permission.");
+                                    Console.WriteLine("я немгу удалить канал");
                                 }
                             }
 
@@ -196,11 +196,11 @@ namespace discordbot
                                     if (!checkPermission)
                                     {
                                         _ = users.KickAsync();
-                                        Console.WriteLine(users.Username + " ( " + users.Id + " ) has kicked from the server.");
+                                        Console.WriteLine(users.Username + " ( " + users.Id + " ) кикнут с сервера");
                                     }
                                 } catch (Exception e)
                                 {
-                                    Console.WriteLine("We could not delete the users.You probably don't have permission.");
+                                    Console.WriteLine("ошибка в исключении пользователя");
                                 }
                             }
 
@@ -209,10 +209,10 @@ namespace discordbot
                                 try
                                 {
                                     Roles.DeleteAsync();
-                                    Console.WriteLine(Roles.Name + " role, has deleted.");
+                                    Console.WriteLine(Roles.Name + " роль удалена");
                                 } catch (Exception e)
                                 {
-                                    Console.WriteLine("We could not delete the rank.You probably don't have permission.");
+                                    Console.WriteLine("не смог удалить роль");
                                 }
                             }
 
@@ -236,4 +236,3 @@ namespace discordbot
     }
 
 }
-
