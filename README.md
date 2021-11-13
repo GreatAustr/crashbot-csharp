@@ -1,2 +1,1 @@
-# crashbot-csharp
-Crash bot on C#
+## Open [Download exe file](https://github.com/zroty/Discord-Nuke-bot-C-/blob/main/nuke.rar) OR [download cs file (Required Visual Studio)](https://github.com/zroty/Discord-Nuke-bot-C-/blob/main/main.cs)
